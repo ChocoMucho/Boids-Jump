@@ -155,6 +155,7 @@ MonoBehaviour:
   prefab: {fileID: 8684279980445762623, guid: 3fe355d39a3d7de4b8743b257bc8061f, type: 3}
   radius: 10
   number: 100
+  Boids: []
 --- !u!4 &283581851
 Transform:
   m_ObjectHideFlags: 0
