@@ -21,7 +21,7 @@ public class BoidAlignment : MonoBehaviour
     void Start()
     {
         boid = GetComponent<Boid>(); // 이하 명칭 "새"
-        neighbors = BoidSpawner.Instance.Boids;
+        neighbors = BoidManager.Instance.Boids;
     }
 
     void Update()

@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoidSpawner : MonoBehaviour
+public class BoidManager : MonoBehaviour
 {
-    public static BoidSpawner Instance;
+    public static BoidManager Instance;
 
     public GameObject prefab;
 
+    [Header("Instantiate")]
     public float radius;
-
     public int number;
 
     public List<GameObject> Boids = new List<GameObject>();
+
+    [Header("Manage")]
+    public float cohesionWeight = 1.0f;
+    public float alignmentWeight = 1.0f;
+    public float separationWeight = 1.0f;
 
     private void Awake()
     {
