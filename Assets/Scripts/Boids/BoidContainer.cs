@@ -20,11 +20,11 @@ public class BoidContainer : MonoBehaviour
     {
         if(radius < boid.transform.position.magnitude)
         {
-            boid.velocity += 
+            /*boid.velocity += 
                 this.transform.position.normalized * 
                 (radius - boid.transform.position.magnitude) * 
                 boundaryForce * 
-                Time.deltaTime;
+                Time.deltaTime;*/
             // 원점->boid 방향 x -(boid가 벗어난 정도) x 힘 x 델타타임
         }
     }

@@ -47,7 +47,7 @@ public class BoidSeparation : MonoBehaviour
         if (found > 0)
         {
             average = average / found;
-            boid.velocity += Vector3.Lerp(Vector3.zero, average, average.magnitude / radius) * seperateForce;
+            //boid.velocity += Vector3.Lerp(Vector3.zero, average, average.magnitude / radius) * seperateForce;
         }
     }
 }

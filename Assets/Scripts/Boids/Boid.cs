@@ -9,53 +9,55 @@ public class Boid : MonoBehaviour
     [Header("Neighbor")]
     List<GameObject> nearNeighbors = new List<GameObject>();
 
-    private float maxNeighbors = 50;
-    //private float nearNeighbors = 0;
-    private float neighborDistance = 5;
-
-    public Vector3 velocity;
-    public float maxVelocity;
+    [Header("MoveInform")]
+    [SerializeField] private Vector3 velocity; 
 
     BoidManager spawner;
 
     [Header("TEST")]
     [SerializeField] private int neighborCount = 0;
 
+    void Start()
+    {
+        Init();
+    }
+
+
     public void Init()
     {
-        ;//What to do in init..
-        
+        spawner = BoidManager.Instance;
+        velocity = transform.forward * spawner.maxSpeed;
+
+
         //start coroutine
     }
 
 
-    void Start()
-    {
-        velocity = transform.forward * maxVelocity;
-        spawner = BoidManager.Instance;
-    }
-
-    // Update is called once per frame
     void Update()
     {
         FindNeighbors();
+
         velocity += CalculateCohesion() * spawner.cohesionWeight;
         velocity += CalculateAlignment() * spawner.alignmentWeight;
         velocity += CalculateSeparation() * spawner.separationWeight;
+        LimitMoveRadius();
 
-        if (velocity.magnitude > maxVelocity) // prevent infinite accelation
-            velocity = velocity.normalized * maxVelocity;
+        if (velocity.magnitude > spawner.maxSpeed) // prevent infinite accelation
+            velocity = velocity.normalized * spawner.maxSpeed;
 
         this.transform.position += velocity * Time.deltaTime; // 가속도
         this.transform.rotation = Quaternion.LookRotation(velocity);
-
     }
 
     private void FindNeighbors()
     {
         nearNeighbors.Clear();
+
         foreach (GameObject neighbor in spawner.Boids) // 전체 이웃 탐색
         {
+            if (nearNeighbors.Count >= spawner.maxNeighbors)
+                return;
+            
             if (neighbor == this.gameObject)
             {
                 Debug.Log("Pass, because neighbor is me");
@@ -64,7 +66,7 @@ public class Boid : MonoBehaviour
 
             Vector3 diff = neighbor.transform.position - this.transform.position;
 
-            if(diff.sqrMagnitude < neighborDistance * neighborDistance) // 범위 내 이웃만 남기기
+            if (diff.sqrMagnitude < spawner.neighborDistance * spawner.neighborDistance) // 범위 내 이웃만 남기기
             {
                 nearNeighbors.Add(neighbor);
             }
@@ -75,6 +77,7 @@ public class Boid : MonoBehaviour
     }
 
 
+    #region Cohesion 계산 메서드
     private Vector3 CalculateCohesion()
     {
         Vector3 cohesionDirection = Vector3.zero;
@@ -90,7 +93,10 @@ public class Boid : MonoBehaviour
         }
         return cohesionDirection;
     }
+    #endregion
 
+
+    #region Alignment 계산 메서드
     private Vector3 CalculateAlignment() 
     {
         Vector3 alignmentDirection = transform.forward;
@@ -107,7 +113,10 @@ public class Boid : MonoBehaviour
         }
         return alignmentDirection;
     }
+    #endregion
 
+
+    #region Separation 계산 메서드
     private Vector3 CalculateSeparation()
     {
         Vector3 separationDirection = Vector3.zero;
@@ -124,5 +133,20 @@ public class Boid : MonoBehaviour
         }
 
         return separationDirection;
+    }
+    #endregion
+
+
+    private void LimitMoveRadius()
+    {
+        if (spawner.moveRadiusRange < this.transform.position.magnitude)
+        {
+            velocity +=
+                (this.transform.position - Vector3.zero).normalized *
+                (spawner.moveRadiusRange - (this.transform.position - Vector3.zero).magnitude) *
+                spawner.boundaryForce *
+                Time.deltaTime;
+            // 원점->boid 방향 x -(boid가 벗어난 정도) x 힘 x 델타타임
+        }
     }
 }

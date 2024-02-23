@@ -11,11 +11,7 @@ GameObject:
   - component: {fileID: 858135854645027735}
   - component: {fileID: 3373318100965437963}
   - component: {fileID: 7113079901852314891}
-  - component: {fileID: 6971846285706309911}
-  - component: {fileID: 3452855033763143138}
-  - component: {fileID: 583540067817534953}
-  - component: {fileID: 1646206088200574435}
-  - component: {fileID: 173836335292688252}
+  - component: {fileID: 6268507827390001015}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -88,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6971846285706309911
+--- !u!114 &6268507827390001015
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,59 +97,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0, z: 0}
-  maxVelocity: 6
+  maxVelocity: 0
   neighborCount: 0
---- !u!114 &3452855033763143138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8684279980445762623}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fa75a1838f1d1d46b8edc637bfec529, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 5
---- !u!114 &583540067817534953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8684279980445762623}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d1e37877afc2b64391a31048c6125c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 5
---- !u!114 &1646206088200574435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8684279980445762623}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b9cb6ef8418904daab658c0e611a55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 0.5
-  seperateForce: 1
---- !u!114 &173836335292688252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8684279980445762623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a76561d0884e2d648b4d7b995fffc5c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 7
-  boundaryForce: 3.5

@@ -37,7 +37,7 @@ public class BoidAlignment : MonoBehaviour
             // TODO : magnitude 개선
             if (diff.sqrMagnitude < radius * radius) // 범위 안에 들어왔다면
             {
-                average += neighbor.GetComponent<Boid>().velocity;
+                //average += neighbor.GetComponent<Boid>().velocity;
                 ++found;
             }
         }
@@ -45,7 +45,7 @@ public class BoidAlignment : MonoBehaviour
         if (found > 0)
         {
             average = average / found;
-            boid.velocity += Vector3.Lerp(boid.velocity, average, Time.deltaTime);
+            //boid.velocity += Vector3.Lerp(boid.velocity, average, Time.deltaTime);
         }
     }
 }
