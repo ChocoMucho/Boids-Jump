@@ -531,12 +531,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 8684279980445762623, guid: 3fe355d39a3d7de4b8743b257bc8061f, type: 3}
-  radius: 10
-  number: 80
+  InstantiateRadius: 0
+  number: 100
   Boids: []
   cohesionWeight: 1
   alignmentWeight: 1
-  separationWeight: 1.3
+  separationWeight: 1.2
+  moveRadiusRange: 5
+  boundaryForce: 3.5
+  maxSpeed: 2
+  neighborDistance: 3
+  maxNeighbors: 50
 --- !u!4 &283581851
 Transform:
   m_ObjectHideFlags: 0

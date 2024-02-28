@@ -10,7 +10,8 @@ public class Boid : MonoBehaviour
     List<GameObject> nearNeighbors = new List<GameObject>();
 
     [Header("MoveInform")]
-    [SerializeField] private Vector3 velocity; 
+    [SerializeField] private Vector3 velocity;
+    [SerializeField] private Vector3 targetVector;
 
     BoidManager spawner;
 
@@ -26,8 +27,7 @@ public class Boid : MonoBehaviour
     public void Init()
     {
         spawner = BoidManager.Instance;
-        velocity = transform.forward * spawner.maxSpeed;
-
+        //velocity = transform.forward * 1;
 
         //start coroutine
     }
@@ -40,7 +40,8 @@ public class Boid : MonoBehaviour
         velocity += CalculateCohesion() * spawner.cohesionWeight;
         velocity += CalculateAlignment() * spawner.alignmentWeight;
         velocity += CalculateSeparation() * spawner.separationWeight;
-        LimitMoveRadius();
+        velocity += LimitMoveRadius();
+
 
         if (velocity.magnitude > spawner.maxSpeed) // prevent infinite accelation
             velocity = velocity.normalized * spawner.maxSpeed;
@@ -49,7 +50,8 @@ public class Boid : MonoBehaviour
         this.transform.rotation = Quaternion.LookRotation(velocity);
     }
 
-    private void FindNeighbors()
+
+    private void FindNeighbors() // TODO : 코루틴으로 연산 지연 필요
     {
         nearNeighbors.Clear();
 
@@ -125,10 +127,9 @@ public class Boid : MonoBehaviour
         {
             for(int i = 0; i < nearNeighbors.Count; ++i)
             {
-                separationDirection += (this.transform.position - nearNeighbors[i].transform.position);
+                separationDirection += (this.transform.position - nearNeighbors[i].transform.position); 
             }
 
-            separationDirection /= nearNeighbors.Count;
             separationDirection.Normalize();
         }
 
@@ -137,16 +138,21 @@ public class Boid : MonoBehaviour
     #endregion
 
 
-    private void LimitMoveRadius()
+    private Vector3 LimitMoveRadius() // TODO : 수정중 단위 벡터만 반환하는 것으로??
     {
+        Vector3 returnVector = Vector3.zero;
         if (spawner.moveRadiusRange < this.transform.position.magnitude)
         {
-            velocity +=
-                (this.transform.position - Vector3.zero).normalized *
-                (spawner.moveRadiusRange - (this.transform.position - Vector3.zero).magnitude) *
-                spawner.boundaryForce *
-                Time.deltaTime;
+            returnVector +=
+                (this.transform.position - spawner.moveCenter).normalized *
+                (spawner.moveRadiusRange - (this.transform.position - spawner.moveCenter).magnitude) *
+                spawner.boundaryForce * Time.deltaTime;
             // 원점->boid 방향 x -(boid가 벗어난 정도) x 힘 x 델타타임
+
+            returnVector.Normalize();
         }
+
+        return returnVector;
     }
 }
+
